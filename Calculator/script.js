@@ -1,10 +1,13 @@
 const actions = document.querySelector(".actions");
 const ans = document.getElementById("input");
+ans.value=0
 let expression = "";
+memory = 0;
 actions.addEventListener("click", (e) => {
   const value = e.target.value || e.target.parentElement.value;
 
   if (value !== undefined) {
+    ans.value="";
     switch (value) {
       case "DEG":
       case "RAD":
@@ -13,7 +16,9 @@ actions.addEventListener("click", (e) => {
 
       case "fe":
         expression = parseFloat(expression).toExponential();
+        forNaN(expression)
         break;
+
       case "mc":
         memory = 0;
         expression = memory;
@@ -32,9 +37,9 @@ actions.addEventListener("click", (e) => {
         break;
 
       case "m+":
-        memory = memory + expression;
-        expression = 0;
-        break;
+          memory = memory + expression;
+          expression = 0;
+          break;
 
       case "m-":
         memory = memory - expression;
@@ -43,6 +48,7 @@ actions.addEventListener("click", (e) => {
 
       case "log2":
         expression = Math.log2(expression);
+        forNaN(expression);
         break;
 
       case "rnd":
@@ -51,97 +57,134 @@ actions.addEventListener("click", (e) => {
 
       case "log1p":
         expression = Math.log1p(expression);
+        forNaN(expression);
         break;
 
       case "2^n":
         expression = Math.pow(2, expression);
+        forNaN(expression);
         break;
 
       case "3^n":
         expression = Math.pow(3, expression);
+        forNaN(expression);
         break;
 
       case "n^3":
         expression = Math.pow(expression, 3);
+        forNaN(expression);
         break;
 
       case "3root":
         expression = Math.cbrt(expression);
-        break;
-      case "pi":
-        expression = Math.PI * expression;
+        forNaN(expression);
         break;
 
+      case "pi":
+        expression = Math.PI * expression;
+        forNaN(expression);
+        break;
+ 
       case "ce":
         expression = "";
         ans.value = 0;
+       
         break;
 
-      case "clear":
-        let exp = expression;
-        if (exp.length > 0) {
-          exp = exp.substring(0, exp.length - 1);
-          expression = exp;
-        }
+      case "clear":        
+        expression = expression.toString().substring(0,expression.toString().length-1)        
         break;
 
       case "square":
         expression = Math.pow(expression, 2);
+        forNaN(expression);
         break;
 
       case "1/x":
-        expression = 1 / expression;
+        expression = "1/";        
         break;
 
       case "|x|":
         expression = Math.abs(expression);
+        forNaN(expression)
         break;
 
       case "exp":
         expression = Math.exp(expression);
+        forNaN(expression)
         break;
 
       case "sqrt":
-        expression = Math.sqrt(expression);
+        expression="√"          
+        break;
+
+      case "*(":
+        let expp = expression.toString().slice(-1);
+        if(expp==='+'||expp==='*'||expp==='-'||expp==='/'||expp===''){
+          expression+="("
+        }
+        else{
+          expression+="*("
+        }       
+        break;
 
       case "factorial":
-        if (expression === 0) {
-          expression = 1;
-        } else {
-          let fact = 1;
+        let fact = 1
+        if(isNaN(expression)){
+           expression="Error"
+        }           
+        else{
           for (i = 1; i <= expression; i++) {
-            fact *= i;
+             fact *= i;
           }
-          expression = fact;
-        }
+           expression = fact;
+          }          
+          break;
 
       case "=":
-        const answer = eval(expression);
-        expression = answer;
+        removezero();
+        try{
+         if (expression.includes("√")){
+          squareroot();
+         }
+          const answer = eval(expression);
+          expression = answer;
+        }
+        catch{
+          expression="Syntax Error"
+        }
+        forNaN(expression);
         break;
 
       case "10power":
         expression = 10 ** expression;
+        forNaN(expression);
         break;
 
       case "ln":
         expression = Math.log(expression);
+        forNaN(expression);
         break;
 
       case "log10":
         expression = Math.log10(expression);
-        break;
+        forNaN(expression);
 
+        break;
+        
       case "sin":
         expression = Math.sin(expression);
+        forNaN(expression);
         break;
 
       case "cos":
         expression = Math.cos(expression);
+        forNaN(expression);
         break;
 
       case "tan":
         expression = Math.tan(expression);
+        forNaN(expression);
         break;
 
       case "+/-":
@@ -152,10 +195,32 @@ actions.addEventListener("click", (e) => {
         }
         break;
 
+      case "0":
+               
+        if(expression==="0"){
+          expression=value
+        }
+        else{
+          expression+=0
+        }
+        break;
+
       default:
         expression += value;
     }
+   
+    function removezero(){
+      if(expression.charAt(0)==='0'){
+        expression = expression.toString().substring(1,expression.toString().length) 
+      }
+      
+    }
 
+    function squareroot(){
+      let e =expression.substring(1, expression.length);
+        expression = Math.sqrt(e);
+    }
+    
     function degrad() {
       var t = document.getElementById("rd");
 
@@ -165,6 +230,16 @@ actions.addEventListener("click", (e) => {
       } else {
         expression = expression * (Math.PI / 180);
         t.value = "DEG";
+      }
+      forNaN(expression)
+    }
+
+    function forNaN(exp){
+      if(isNaN(exp)){
+        expression="Error"
+      }
+      else{
+        expression = exp
       }
     }
 
