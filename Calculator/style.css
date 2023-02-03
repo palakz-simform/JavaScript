@@ -24,7 +24,6 @@ body {
   outline: none;
   padding: 15px;
   color: black;
-  
 }
 .col button {
   background-color: #e5e4e2;
@@ -60,8 +59,7 @@ body {
   width: 55px;
 }
 
-
-button.dropdown-item.dropm{
+button.dropdown-item.dropm {
   background-color: white;
 }
 .dropcolor {
