@@ -49,10 +49,15 @@ body {
 
 .dropdown-menu button {
   background-color: white;
-  width: 130px;
+  
 }
 .dropdown-menu button:hover {
   background-color: white;
+}
+ul.dropdown-menu.dropm.show{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .dropm2 button {

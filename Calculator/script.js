@@ -152,18 +152,14 @@ actions.addEventListener("click", (e) => {
         try {
           if (expression.includes("√")) {
             squareroot();
-          }
-          else if(expression.includes("log")){
+          } else if (expression.includes("log")) {
             logten();
-          }
-          else if(expression.includes("ln")){
+          } else if (expression.includes("ln")) {
             ln();
-          }
-         else{
+          } else {
             const answer = eval(expression);
-          expression = answer;
+            expression = answer;
           }
-          
         } catch {
           expression = "Syntax Error";
         }
@@ -171,18 +167,17 @@ actions.addEventListener("click", (e) => {
         break;
 
       case "10power":
-        expression="10**"
+        expression = "10**";
         break;
 
       case "ln":
-        expression = "ln"
-       
+        expression = "ln";
         break;
 
       case "log10":
         expression = "log";
         break;
-   
+
       case "sin":
         expression = Math.sin(expression);
         forNaN(expression);
@@ -225,22 +220,26 @@ actions.addEventListener("click", (e) => {
           .substring(1, expression.toString().length);
       }
     }
-
-    function logten(){
+    
+    // Function to calculate log10
+    function logten() {
       let e = expression.substring(3, expression.length);
       expression = Math.log10(e);
     }
 
-    function ln(){
+    // function to calculate ln
+    function ln() {
       let e = expression.substring(2, expression.length);
       expression = Math.log(e);
     }
 
+    //function to calculate squareroot
     function squareroot() {
       let e = expression.substring(1, expression.length);
       expression = Math.sqrt(e);
     }
 
+    //function to convert radian to degree and degree to radian
     function degrad() {
       var t = document.getElementById("rd");
 
