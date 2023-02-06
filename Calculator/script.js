@@ -252,7 +252,8 @@ actions.addEventListener("click", (e) => {
       }
       forNaN(expression);
     }
-
+    
+    //function to check if the value of expression is NaN
     function forNaN(exp) {
       if (isNaN(exp)) {
         expression = "Error";

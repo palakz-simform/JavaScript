@@ -63,7 +63,9 @@ ul.dropdown-menu.dropm.show{
 .dropm2 button {
   width: 55px;
 }
-
+.dropdown-item{
+  text-align:center;
+}
 button.dropdown-item.dropm {
   background-color: white;
 }
