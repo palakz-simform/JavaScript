@@ -1,11 +1,11 @@
 let flag = 0;
-
+slideshow(flag);
 function controller(x) {
   flag = flag + x;
   slideshow(flag);
 }
 
-slideshow(flag);
+
 function slideshow(num) {
   let slides = document.getElementsByClassName("slide");
   if (num == slides.length) {

@@ -20,6 +20,8 @@ body {
 
 .navbar-brand {
   color: white;
+  font-size:25px;
+  font-weight: bold;
 }
 
 .navbar-nav {
@@ -176,9 +178,8 @@ hr {
 .container-service {
   background-image: url("./images/service1.jpg");
   background-repeat: no-repeat;
-
   height: 500px;
-  margin: 10px auto;
+  margin: 50px auto;
 }
 
 .container-service h1 {
@@ -205,6 +206,7 @@ hr {
   background-color: rgb(209, 209, 209);
   padding: 40px 30px;
   margin: 40px 0px;
+ 
 }
 
 .btn-service {
