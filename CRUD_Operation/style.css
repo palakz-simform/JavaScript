@@ -1,0 +1,29 @@
+.container-form{
+   
+    display: flex;
+    justify-content: center;
+    margin: 40px auto;
+}
+.container-form label{
+    margin:10px auto;
+}
+.container-form input{
+    width:500px;
+    
+}
+.container-form textarea{
+    width:500px;
+    
+}
+#disp-id,#disp-name,#disp-image,#disp-price,#disp-description{
+    color:red;
+}
+.row{
+    width:100%;
+    display:flex;
+    align-items: center;
+}
+.table{
+    width: 90%;
+    
+}
