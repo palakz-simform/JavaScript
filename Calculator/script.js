@@ -22,6 +22,8 @@ actions.addEventListener("click", (e) => {
       case "mc":
         memory = 0;
         expression = memory;
+        document.getElementById("mc").disabled = true;
+        document.getElementById("mr").disabled = true;
         break;
 
       case "mr":
@@ -81,8 +83,18 @@ actions.addEventListener("click", (e) => {
         break;
 
       case "pi":
-        expression = Math.PI * expression;
-        forNaN(expression);
+        let expval = expression.toString().slice(-1);
+        if (
+          expval === "+" ||
+          expval === "*" ||
+          expval === "-" ||
+          expval === "/" ||
+          expval === ""
+        ) {
+          expression += "3.14159";
+        } else {
+          expression += "*3.14159";
+        }
         break;
 
       case "ce":
@@ -112,8 +124,19 @@ actions.addEventListener("click", (e) => {
         break;
 
       case "exp":
-        expression = Math.exp(expression);
-        forNaN(expression);
+        let exp_val = expression.toString().slice(-1);
+        if (
+          exp_val === "+" ||
+          exp_val === "*" ||
+          exp_val === "-" ||
+          exp_val === "/" ||
+          exp_val === ""
+        ) {
+          expression += "2.71828";
+        } else {
+          expression += "*2.71828";
+        }
+
         break;
 
       case "sqrt":
@@ -147,6 +170,10 @@ actions.addEventListener("click", (e) => {
         }
         break;
 
+      case "numpow":
+        expression += "^";
+        break;
+
       case "=":
         removezero();
         try {
@@ -156,6 +183,8 @@ actions.addEventListener("click", (e) => {
             logten();
           } else if (expression.includes("ln")) {
             ln();
+          } else if (expression.includes("^")) {
+            numpower();
           } else {
             const answer = eval(expression);
             expression = answer;
@@ -167,7 +196,7 @@ actions.addEventListener("click", (e) => {
         break;
 
       case "10power":
-        expression = "10**";
+        expression = "10^";
         break;
 
       case "ln":
@@ -220,7 +249,7 @@ actions.addEventListener("click", (e) => {
           .substring(1, expression.toString().length);
       }
     }
-    
+
     // Function to calculate log10
     function logten() {
       let e = expression.substring(3, expression.length);
@@ -239,20 +268,29 @@ actions.addEventListener("click", (e) => {
       expression = Math.sqrt(e);
     }
 
+    //function to calculate power
+    function numpower() {
+      let symbol = expression.indexOf("^");
+      let exp1 = expression.slice(0, symbol);
+      var exp2 = expression.slice(symbol + 1, expression.length);
+
+      expression = exp1 ** exp2;
+    }
+
     //function to convert radian to degree and degree to radian
     function degrad() {
-      var t = document.getElementById("rd");
+      var val = document.getElementById("rd");
 
-      if (t.value === "DEG") {
+      if (val.value === "DEG") {
         expression = expression * (180 / Math.PI);
-        t.value = "RAD";
+        val.value = "RAD";
       } else {
         expression = expression * (Math.PI / 180);
-        t.value = "DEG";
+        val.value = "DEG";
       }
       forNaN(expression);
     }
-    
+
     //function to check if the value of expression is NaN
     function forNaN(exp) {
       if (isNaN(exp)) {
