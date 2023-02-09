@@ -1,3 +1,32 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    padding: 10px 50px;
+    z-index: 1;
+  }
+  
+  .nav-item {
+    margin: 0px 20px;
+  }
+  
+  .navbar-brand {
+    color: white;
+    font-size:25px;
+    font-weight: bold;
+  }
+  
+  .navbar-nav {
+    margin-right: 50px;
+  }
+  
+  .nav-link {
+    color: white;
+  }
+  
+  .nav-link:hover {
+    color: rgb(93, 151, 151);
+  }
+  
 .container-form{
    
     display: flex;

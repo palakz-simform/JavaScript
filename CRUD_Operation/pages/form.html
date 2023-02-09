@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container container-form">
+        <div class="mb-5">
+            <div class="form-group col-md-6 mb-3">
+                <label for="name">Product Id</label>
+                <input type="text" name="id" class="form-control" id="id" placeholder="Enter Id"/>
+                <div id="disp-id"></div>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="name">Product Name</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Enter name"/>
+                <div id="disp-name"></div>
+            </div>
+    
+            <div class="form-group col-md-6 mb-3">
+                <label for="image">Product Image</label>
+                <input type="text" name="image" class="form-control" id="image" placeholder="Upload image"/>
+                <div id="disp-image"></div>
+            </div>
+    
+            <div class="form-group col-md-6 mb-3">
+                <label for="name">Product Price</label>
+                <input type="text" name="price" class="form-control" id="price" placeholder="Enter price"/>
+                <div id="disp-price"></div>
+            </div>
+    
+            <div class="form-group col mb-3">
+                <label for="name">Product description</label>
+                <textarea type="text" name="description" class="form-control" id="description" placeholder="Enter description"></textarea>
+                <div id="disp-description"></div>
+            </div>
+    
+            <div class="col mt-5">
+                <button class="btn btn-success" id="Submit" onclick="AddData()">Add Data</button>
+                <button class="btn btn-primary" id="Update" onclick="UpdateData()">Update</button>
+            </div>
+            </div>
+    
+        </div>
+</body>
+</html>

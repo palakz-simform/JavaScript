@@ -36,7 +36,7 @@ function validateForm(){
 
 }
 
-document.onload = showData();
+// document.onload = showData();
 //function to show data
 function showData(){
     
@@ -47,7 +47,7 @@ function showData(){
     else{
         productList = JSON.parse(localStorage.getItem("productList"))
     }
-
+    console.log(productList)
     var html = "";
    
     productList.forEach(function(element,index){
@@ -58,12 +58,16 @@ function showData(){
         html += "<td>" + element.image + "</td>";
         html += "<td>" + element.price + "</td>";
         html += "<td>" + element.description + "</td>";
-        html += `<td><button onclick = "deleteData(`+index+`)" class="btn btn-danger">Delete</button>&emsp;&emsp;<button onclick = "updateData(`+index+`)" class="btn btn-warning">Edit</button></td>`;
+        html += `<td><button onclick = "deleteData(`+index+`)" class="btn btn-danger">Delete</button>&emsp;&emsp;<a href="#"><button onclick = "updateData(`+index+`)" class="btn btn-warning">Edit</button></a></td>`;
         html += "</tr>"  
         
     });
     
-    document.getElementById("crudTable").innerHTML = html;
+ setTimeout(()=>{
+        document.getElementById("crudTable").innerHTML = html;
+  },10)
+
+    
     
     
 }
@@ -95,13 +99,15 @@ function AddData(){
         });
 
         localStorage.setItem("productList",JSON.stringify(productList));
-        
-        showData();
+      
+       // showData();
         document.getElementById("id").value="";
         document.getElementById("name").value="";
         document.getElementById("image").value="";
         document.getElementById("price").value="";
         document.getElementById("description").value="";
+
+        window.alert("Data Added successfully");
 
     }
 }
@@ -123,7 +129,8 @@ function deleteData(index){
 }
 
 //Edit data from local storage
-function updateData(index){
+
+function updateData(){
     document.getElementById("Submit").style.display  = "none";
     document.getElementById("Update").style.display  = "block";
 
@@ -150,17 +157,57 @@ function updateData(index){
             productList[index].description = document.getElementById("description").value;
             
             localStorage.setItem("productList", JSON.stringify(productList))
+   
+    showData();
+    document.getElementById("id").value="";
+    document.getElementById("name").value="";
+    document.getElementById("image").value="";
+    document.getElementById("price").value="";
+    document.getElementById("description").value="";
 
-            showData();
-            document.getElementById("id").value="";
-            document.getElementById("name").value="";
-            document.getElementById("image").value="";
-            document.getElementById("price").value="";
-            document.getElementById("description").value="";
+    document.getElementById("Submit").style.display  = "block";
+    document.getElementById("Update").style.display  = "none";
+    
 
-            document.getElementById("Submit").style.display  = "block";
-            document.getElementById("Update").style.display  = "none";
         }
     }
-
 }
+//Routing
+
+const routes = {
+   
+    404:{
+        template:"./pages/404.html",
+        title:"404"
+    },
+    "/":{
+        template:"./pages/form.html",
+        title:"Form"
+    },
+    display:{
+        template:"./pages/display.html",
+        title:"Products"
+    }
+}
+
+const locationHandler = async () => {
+    var location = window.location.hash.replace("#","");
+    console.log(location)
+    if(location.length==0 || location=="#"){
+        location = "/"
+    }
+
+    const route = routes[location] || routes[404];
+    const html = await fetch(route.template).then((response)=>response.text());
+
+    if(window.location.hash=="#display"){
+        showData()
+    }
+    document.getElementById("content").innerHTML = html;
+    document.title = route.title
+}
+
+window.addEventListener("hashchange",locationHandler)
+locationHandler();
+
+
