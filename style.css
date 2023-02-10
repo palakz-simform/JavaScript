@@ -1,0 +1,85 @@
+body {
+  width: 100%;
+}
+
+.containerrow {
+  width: 300px;
+  align-content: center;
+  margin: auto;
+  background-color: #e5e4e2;
+  margin-top: 50px;
+}
+
+.col {
+  display: flex;
+}
+.col-4 input {
+  width: 300px;
+  height: 55px;
+  font-size: 30px;
+  background-color: #e5e4e2;
+  text-align: right;
+  border-radius: 0px;
+  border: none;
+  outline: none;
+  padding: 15px;
+  color: black;
+}
+.col button {
+  background-color: #e5e4e2;
+  color: black;
+  border: none;
+  border-radius: 0px;
+  width: 70px;
+  margin: 2px;
+  font-size: 15px;
+  font-family: "Roboto", sans-serif;
+}
+.col button:hover {
+  background-color: #d3d3d3;
+  color: black;
+}
+.inputbtn input {
+  border: none;
+  width: 70px;
+}
+.dropdown button {
+  width: 130px;
+}
+
+.dropdown-menu button {
+  background-color: white;
+  
+}
+.dropdown-menu button:hover {
+  background-color: white;
+}
+ul.dropdown-menu.dropm.show{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dropm2 button {
+  width: 55px;
+}
+.dropdown-item{
+  text-align:center;
+}
+button.dropdown-item.dropm {
+  background-color: white;
+}
+.dropcolor {
+  background-color: white;
+}
+.col-bg button {
+  background-color: #f0f0f0;
+  margin: 2px;
+}
+button.btn.bold {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}
+button.btn.blue {
+  background-color: #7bb2df;
+}

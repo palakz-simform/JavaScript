@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/0c8946a054.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Calculator</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="containerrow">
+        <div class="row">
+          <div class="col-4">
+            <input type="text" id="input" disabled />
+          </div>
+        </div>
+        <div class="actions">
+          <div class="row">
+            <div class="col inputbtn">
+              <input type="button" class="btn" id="rd" value="DEG" />
+              <button type="button" class="btn" value="fe">F-E</button>
+            </div>
+          </div>
+          <!--Memory functions(Buttons: MC: Memory Clear, MR: Memory Recall, M+:Memory Add, M-:Memory Subtract, MS:Memory Store)-->
+          <div class="row">
+            <div class="col">
+              <button type="button" class="btn" value="mc" id="mc" disabled>
+                MC
+              </button>
+              <button type="button" class="btn" value="mr" id="mr" disabled>
+                MR
+              </button>
+              <button type="button" class="btn" value="m+">M+</button>
+              <button type="button" class="btn" value="m-">M-</button>
+              <button type="button" class="btn" value="ms">MS</button>
+            </div>
+          </div>
+          <!--Trigonometry and log functions (Buttons: sin,cos and tan)-->
+          <div class="row">
+            <div class="col">
+              <div class="dropdown">
+                <button
+                  class="btn dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="https://img.icons8.com/glyph-neue/14/null/trigonometry.png"
+                  />
+                  Trigonometry
+                </button>
+
+                <ul class="dropdown-menu">
+                  <li>
+                    <button class="dropdown-item" value="sin">sin</button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item" value="cos">cos</button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item" value="tan">tan</button>
+                  </li>
+                </ul>
+              </div>
+              <!--Buttons: log2, random, log1p-->
+              <div class="dropdown">
+                <button
+                  class="btn dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="https://img.icons8.com/ios-filled/14/null/frequency-f.png"
+                  />&nbsp;Function
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <button class="dropdown-item" value="log2">log2</button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item" value="rnd">RND</button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item" value="log1p">log1p</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-bg">
+              <!--Buttons: (1) 2 power n (2) 3 power n (3) n cube (4) cube root-->
+              <div class="dropdown dropm2">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  2<sup>nd</sup>
+                </button>
+                <ul class="dropdown-menu dropm">
+                  <li>
+                    <button class="dropdown-item dropm" value="2^n">
+                      2<sup>n</sup>
+                    </button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item dropm" value="3^n">
+                      3<sup>n</sup>
+                    </button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item dropm" value="n^3">
+                      n<sup>3</sup>
+                    </button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item dropm" value="3root">
+                      <sup>3</sup><em>&#8730;</em><span> y</span>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
+              <!--Buttons: PI, e, clear and backspace -->
+              <button type="button" class="btn" value="pi">&pi;</button>
+              <button type="button" class="btn" value="exp">e</button>
+              <button type="button" class="btn" value="ce">C</button>
+              <button type="button" class="btn" value="clear">
+                <i class="fa-solid fa-delete-left"></i>
+              </button>
+            </div>
+          </div>
+          <!--Other functions of calculator-->
+          <div class="row">
+            <div class="col col-bg">
+              <button type="button" class="btn" value="square">
+                x<sup>2</sup>
+              </button>
+              <button type="button" class="btn" value="1/x">1/x</button>
+              <button type="button" class="btn" value="|x|">|x|</button>
+              <button type="button" class="btn" value="e">exp</button>
+              <button type="button" class="btn" value="%">mod</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-bg">
+              <button type="button" class="btn" value="sqrt">
+                <sup>2</sup><em>&#8730;</em><span> y</span>
+              </button>
+              <button type="button" class="btn" value="*(">(</button>
+              <button type="button" class="btn" value=")">)</button>
+              <button type="button" class="btn" value="factorial">n!</button>
+              <button type="button" class="btn" value="/">
+                <i class="fa-solid fa-divide"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-bg">
+              <button type="button" class="btn" value="numpow">
+                x<sup>y</sup>
+              </button>
+              <button type="button" class="btn bold" value="7">7</button>
+              <button type="button" class="btn bold" value="8">8</button>
+              <button type="button" class="btn bold" value="9">9</button>
+              <button type="button" class="btn" value="*">x</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-bg">
+              <button type="button" class="btn" value="10power">
+                10<sup>x</sup>
+              </button>
+              <button type="button" class="btn bold" value="4">4</button>
+              <button type="button" class="btn bold" value="5">5</button>
+              <button type="button" class="btn bold" value="6">6</button>
+              <button type="button" class="btn" value="-">-</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-bg">
+              <button type="button" class="btn" value="log10">log</button>
+              <button type="button" class="btn bold" value="1">1</button>
+              <button type="button" class="btn bold" value="2">2</button>
+              <button type="button" class="btn bold" value="3">3</button>
+              <button type="button" class="btn" value="+">+</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-bg">
+              <button type="button" class="btn" value="ln">ln</button>
+              <button type="button" class="btn" value="+/-">
+                <sup>+</sup>/<sub>-</sub>
+              </button>
+              <button type="button" class="btn bold" value="0">0</button>
+              <button type="button" class="btn" value=".">.</button>
+              <button type="button" class="btn blue" value="=">=</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
