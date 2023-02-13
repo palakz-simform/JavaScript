@@ -1,14 +1,21 @@
+// localStorage.clear()
 //validate forminputs before loading
 function validateForm() {
   var id = document.getElementById("id").value;
   var name = document.getElementById("name").value;
-  var image = document.getElementById("image").value;
+  var image = document.getElementById("prodimage").value;
   var price = document.getElementById("price").value;
   var description = document.getElementById("description").value;
 
   if (id == "") {
     document.getElementById("disp-id").innerHTML = "**Enter Product ID**";
-    return false;
+    return false;   
+  }
+  else if(id!=""){      
+    if(isNaN(id)){
+      document.getElementById("disp-id").innerHTML = "**ID should be number**";
+      return false;      
+    }      
   }
   if (name == "") {
     document.getElementById("disp-name").innerHTML = "**Enter Product name**";
@@ -23,11 +30,18 @@ function validateForm() {
     document.getElementById("disp-price").innerHTML =
       "**Upload Product Price**";
     return false;
-  } else if (price < 0) {
+  }   else if (price < 0) {
     document.getElementById("disp-price").innerHTML =
       "**Product Price should be greater than zero**";
     return false;
   }
+  if(price!=""){    
+    if(isNaN(price)){
+      document.getElementById("disp-price").innerHTML = "**Price should be number**";
+      return false;   
+    }   
+  }
+
   if (description == "") {
     document.getElementById("disp-description").innerHTML =
       "**Enter Product description**";
@@ -37,22 +51,23 @@ function validateForm() {
   return true;
 }
 
-
-// document.onload = showData();
-//function to show data
-function disp(data){
-  filterprodlist = data
+//function to Display Data
+function disp(data) {
+  filterprodlist = data;
   var html = "";
-  filterprodlist.forEach(function (element, index) {   
+  filterprodlist.forEach(function (element, index) {
     html += "<tr>";
     html += "<td>" + element.id + "</td>";
     html += "<td>" + element.name + "</td>";
-    html += "<td>" + element.image + "</td>";
+    html +=
+      `<td> <img src=` +
+      localStorage.getItem(element.id) +
+      ` style="width:100px;height:100px"> </td>`;
     html += "<td>" + element.price + "</td>";
     html += "<td>" + element.description + "</td>";
     html +=
       `<td><button onclick = "deleteData(` +
-      index +
+      element.id +
       `)" class="btn btn-danger">Delete</button>&emsp;&emsp;<a href="#"><button onclick = "updateData(` +
       index +
       `)" class="btn btn-warning">Edit</button></a></td>`;
@@ -62,112 +77,125 @@ function disp(data){
   document.getElementById("crudTable").innerHTML = html;
 }
 
-function showData() {
-
-  setTimeout(() => {
-    var productList;    
-    let sortitem = document.querySelector(".sortitem");   
-    let arrow = document.querySelector(".arrow")
-    let searchprod = document.querySelector(".search-prod");
-
-    if (localStorage.getItem("productList") == null) {
-      productList = [];
-    } else {
-      productList = JSON.parse(localStorage.getItem("productList"));
-    }   
-    let filterprodlist = productList; 
-   
-      //Code for searching item
-
-      searchprod.addEventListener("keyup",(e)=>{
-        let searchproduct = [...productList]
-        
-        searchproduct = searchproduct.filter(product  => product.id==e.target.value)
-        if(e.target.value==""){
-          searchproduct=productList;
-        }
-        disp(searchproduct)         
-      })
- 
-
-//For sorting Products
-sortitem.addEventListener("click",(e)=>{
-  let sorybyvalue = e.target.value;
-  sortval(sorybyvalue)
-})
-//sorttype = id,name sortval = asc desc
-function sortval(val){
-  let sorttype = val
-  arrow.addEventListener("click",(e)=>{
-   
-    if(sorttype=="productId" && e.target.value=="ascending"){      
-      filterprodlist = productList.sort((a, b) => a.id - b.id);       
-      disp(filterprodlist)      
-    }
-    else if(sorttype=="productId"  && e.target.value=="descending"){ 
-       
-      filterprodlist = productList.sort((a, b) => b.id - a.id);            
-      disp(filterprodlist)    
-    }
-    else if (sorttype === "productName" && e.target.value=="ascending") {
-      filterprodlist = productList.sort((a, b) =>
-        a.name.localeCompare(b.name)
-    );
-    }
-    else if (sorttype === "productName" && e.target.value=="descending") {
-      filterprodlist = productList.sort((a, b) =>
-        b.name.localeCompare(a.name)
-    );
-      disp(filterprodlist)
-    }
-     else if (e.target.value === "price" && e.target.value=="ascending" ) {
-      filterprodlist = productList.sort((a, b) => a.price - b.price);
-      disp(filterprodlist)
-    }    
-    else if (e.target.value === "price" && e.target.value=="descending" ) {
-      filterprodlist = productList.sort((a, b) => b.price - a.price);
-      disp(filterprodlist)
-    }    
-
-  })
+function getProductData() {
+  if (localStorage.getItem("productList") == null) {
+    productList = [];
+  } else {
+    productList = JSON.parse(localStorage.getItem("productList"));
+  }
+  return productList;
 }
 
 
+function showData() {
+  setTimeout(() => {
+    var productList;
+    let sortitem = document.querySelector(".sortitem");
+    let arrow = document.querySelector(".arrow");
+    let searchprod = document.querySelector(".search-prod");
 
-disp(filterprodlist)
-    
+    productList = getProductData();
+    let filterprodlist = productList;
+
+    //Code for searching item
+    searchprod.addEventListener("keyup", (e) => {
+      let searchproduct = [...productList];
+      searchproduct = searchproduct.filter(
+        (product) => product.id == e.target.value
+      );
+      if (e.target.value == "") {
+        searchproduct = productList;
+      }
+      disp(searchproduct);
+    });
+
+    //For sorting Products
+    sortitem.addEventListener("click", (e) => {
+      let sorybyvalue = e.target.value;
+      sortval(sorybyvalue);
+    });
+
+    //sorttype = id,name sortval = asc desc
+    function sortval(val) {
+      let sorttype = val;
+      arrow.addEventListener("click", (e) => {
+        if (sorttype == "productId" && e.target.value == "ascending") {
+          filterprodlist = productList.sort((a, b) => a.id - b.id);
+          disp(filterprodlist);
+        } else if (sorttype == "productId" && e.target.value == "descending") {
+          filterprodlist = productList.sort((a, b) => b.id - a.id);
+          disp(filterprodlist);
+        } else if (
+          sorttype === "productName" &&
+          e.target.value == "ascending"
+        ) {
+          filterprodlist = productList.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          );
+        } else if (
+          sorttype === "productName" &&
+          e.target.value == "descending"
+        ) {
+          filterprodlist = productList.sort((a, b) =>
+            b.name.localeCompare(a.name)
+          );
+          disp(filterprodlist);
+        } else if (
+          e.target.value === "price" &&
+          e.target.value == "ascending"
+        ) {
+          filterprodlist = productList.sort((a, b) => a.price - b.price);
+          disp(filterprodlist);
+        } else if (
+          e.target.value === "price" &&
+          e.target.value == "descending"
+        ) {
+          filterprodlist = productList.sort((a, b) => b.price - a.price);
+          disp(filterprodlist);
+        }
+      });
+    }
+    disp(filterprodlist);
   }, 0);
 }
 
-// Loads all the data when document or page loaded
 // function to add data
 
 function AddData() {
+  
   if (validateForm() == true) {
+    
+    //clear errors
+    document.getElementById("disp-id").innerHTML = "";
+    document.getElementById("disp-name").innerHTML = "";
+    document.getElementById("disp-image").innerHTML = "";
+    document.getElementById("disp-price").innerHTML = "";
+    document.getElementById("disp-description").innerHTML = "";
+
+
     var id = document.getElementById("id").value;
     var name = document.getElementById("name").value;
-    var image = document.getElementById("image").value;
     var price = document.getElementById("price").value;
     var description = document.getElementById("description").value;
+    const input_img = document.getElementById("prodimage");
 
-    var productList;
-    if (localStorage.getItem("productList") == null) {
-      productList = [];
+    var productList = getProductData();
+
+    const image1 = input_img.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(image1);
+    reader.addEventListener("load", () => {
+      localStorage.setItem(id, reader.result);
+    });
+
+    let products = [...productList];
+    products = products.filter((product) => product.id == id);
+    if (products.length > 0) {
+      alert("Id exists");
     } else {
-      productList = JSON.parse(localStorage.getItem("productList"));
-    }
- 
-    let products = [...productList]
-    products = products.filter(product  => product.id==id)
-    console.log(products)
-   if(products.length>0){
-          alert("Id exists")
-    }
-    else{
       productList.push({
         id: id,
         name: name,
-        image: image,
         price: price,
         description: description,
       });
@@ -176,30 +204,25 @@ function AddData() {
       // showData();
       document.getElementById("id").value = "";
       document.getElementById("name").value = "";
-      document.getElementById("image").value = "";
+      document.getElementById("prodimage").value = "";
       document.getElementById("price").value = "";
       document.getElementById("description").value = "";
-  
+
       window.alert("Data Added successfully");
     }
-   
-
-  
   }
+
 }
 
 //Function to delete data
-function deleteData(index) {
-  var productList;
-  if (localStorage.getItem("productList") == null) {
-    productList = [];
-  } else {
-    productList = JSON.parse(localStorage.getItem("productList"));
-  }
-
-  productList.splice(index, 1);
-
+function deleteData(id) {
+  var productList = getProductData();
+  let copyprod = [...productList];
+  copyprod = copyprod.filter((prod) => prod.id != id);
+  productList = copyprod;
   localStorage.setItem("productList", JSON.stringify(productList));
+
+  localStorage.removeItem(id);
   showData();
 }
 
@@ -209,36 +232,44 @@ function updateData(index) {
     document.getElementById("Submit").style.display = "none";
     document.getElementById("Update").style.display = "block";
 
-    var productList;
-    if (localStorage.getItem("productList") == null) {
-      productList = [];
-    } else {
-      productList = JSON.parse(localStorage.getItem("productList"));
-    }
+    var productList = getProductData();
+
     document.getElementById("id").value = productList[index].id;
     document.getElementById("name").value = productList[index].name;
-    document.getElementById("image").value = productList[index].image;
     document.getElementById("price").value = productList[index].price;
     document.getElementById("description").value =
       productList[index].description;
-
+    let id = productList[index].id;
     document.querySelector("#Update").onclick = function () {
       if (validateForm() == true) {
         productList[index].id = document.getElementById("id").value;
         productList[index].name = document.getElementById("name").value;
-        productList[index].image = document.getElementById("image").value;
+
         productList[index].price = document.getElementById("price").value;
         productList[index].description =
           document.getElementById("description").value;
 
         localStorage.setItem("productList", JSON.stringify(productList));
-        showData();
+        let newid = productList[index].id;
+
+        if (document.getElementById("prodimage").value) {
+          localStorage.removeItem(id);
+          const input_img = document.getElementById("prodimage");
+          const image1 = input_img.files[0];
+          const reader = new FileReader();
+          reader.readAsDataURL(image1);
+          reader.addEventListener("load", () => {
+            localStorage.setItem(newid, reader.result);
+          });
+        }
+
+        window.alert("Data Updated Successfully");
+        window.location.href = "#display";
         document.getElementById("id").value = "";
         document.getElementById("name").value = "";
-        document.getElementById("image").value = "";
+        document.getElementById("prodimage").value = "";
         document.getElementById("price").value = "";
         document.getElementById("description").value = "";
-
         document.getElementById("Submit").style.display = "block";
         document.getElementById("Update").style.display = "none";
       }
@@ -281,49 +312,3 @@ const locationHandler = async () => {
 
 window.addEventListener("hashchange", locationHandler);
 locationHandler();
-
-/*
-async function fetchData() {
-  let response = await JSON.parse(localStorage.getItem("productList"));
-   
-  return response;
-}
-function updateData(index) {
-  let fetch = fetchData();
-
-  fetch.then((data) => {
-    
-    var productList;
-    productList = data;
-
-    document.getElementById("id").value = productList[index].id;
-    document.getElementById("name").value = productList[index].name;
-    document.getElementById("image").value = productList[index].image;
-    document.getElementById("price").value = productList[index].price;
-    document.getElementById("description").value =
-      productList[index].description;
-    document.getElementById("Submit").style.display = "none";
-    document.getElementById("Update").style.display = "block";
-
-    document.querySelector("#Update").onclick = function () {
-      if (validateForm() == true) {
-        productList[index].id = document.getElementById("id").value;
-        productList[index].name = document.getElementById("name").value;
-        productList[index].image = document.getElementById("image").value;
-        productList[index].price = document.getElementById("price").value;
-        productList[index].description =
-        document.getElementById("description").value;
-
-        localStorage.setItem("productList", JSON.stringify(productList));
-
-        showData();
-        document.getElementById("id").value = "";
-        document.getElementById("name").value = "";
-        document.getElementById("image").value = "";
-        document.getElementById("price").value = "";
-        document.getElementById("description").value = "";
-      }
-    };
-  });
-}
-*/
