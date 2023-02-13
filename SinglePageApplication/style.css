@@ -1,6 +1,4 @@
-html {
-  scroll-behavior: smooth;
-}
+
 
 body {
   font-family: Arial;
@@ -219,13 +217,59 @@ hr {
   color: white;
   border: none;
 }
-
-@media only screen and (max-width: 992px) {
-  .head-section h1 {
-    font-size: 50px;
+.footer{
+  background-color: rgb(46, 45, 45);
+  color:white;
+  text-align:center;
+  height:50px;
+  }
+  .footer p{
+    padding-top:15px;
   }
 
+
+@media only screen and (max-width: 992px) {
+
+  .head-section h1 {
+    font-size: 45px;
+  }
+  .btn-section {
+    margin-top: 30px;
+   
+  }
+  .home-num-section{
+    margin:50px auto;
+  }
   .container-service h1 {
     font-size: 55px;
   }
+  .about-row{
+    display:flex;
+    flex-direction: column;
+    align-content: center;
+    margin:15px 10px;
+  }
+  
+  
+}
+@media only screen and (max-width: 550px) {
+
+  .head-section h1 {
+    font-size: 40px;
+  }
+  .btn-section {
+    margin-top: 10px;
+   
+  }
+  .row{
+    display:flex;
+    flex-direction: column;
+    align-content:center
+  }
+  .about-common-col{
+      width:350px;
+  }
+
+  
+ 
 }
