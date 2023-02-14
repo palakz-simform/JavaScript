@@ -7,6 +7,13 @@ function validateForm() {
   var price = document.getElementById("price").value;
   var description = document.getElementById("description").value;
 
+      //clear errors
+      document.getElementById("disp-id").innerHTML = "";
+      document.getElementById("disp-name").innerHTML = "";
+      document.getElementById("disp-image").innerHTML = "";
+      document.getElementById("disp-price").innerHTML = "";
+      document.getElementById("disp-description").innerHTML = "";
+
   if (id == "") {
     document.getElementById("disp-id").innerHTML = "**Enter Product ID**";
     return false;   
@@ -82,10 +89,10 @@ function getProductData() {
     productList = [];
   } else {
     productList = JSON.parse(localStorage.getItem("productList"));
+   
   }
   return productList;
 }
-
 
 function showData() {
   setTimeout(() => {
@@ -160,33 +167,19 @@ function showData() {
 }
 
 // function to add data
-
 function AddData() {
   
-  if (validateForm() == true) {
-    
-    //clear errors
-    document.getElementById("disp-id").innerHTML = "";
-    document.getElementById("disp-name").innerHTML = "";
-    document.getElementById("disp-image").innerHTML = "";
-    document.getElementById("disp-price").innerHTML = "";
-    document.getElementById("disp-description").innerHTML = "";
+  if (validateForm() == true) {    
 
 
     var id = document.getElementById("id").value;
     var name = document.getElementById("name").value;
     var price = document.getElementById("price").value;
     var description = document.getElementById("description").value;
-    const input_img = document.getElementById("prodimage");
-
+    
     var productList = getProductData();
-
-    const image1 = input_img.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(image1);
-    reader.addEventListener("load", () => {
-      localStorage.setItem(id, reader.result);
-    });
+    
+    storeImage(id)
 
     let products = [...productList];
     products = products.filter((product) => product.id == id);
@@ -201,12 +194,7 @@ function AddData() {
       });
       localStorage.setItem("productList", JSON.stringify(productList));
 
-      // showData();
-      document.getElementById("id").value = "";
-      document.getElementById("name").value = "";
-      document.getElementById("prodimage").value = "";
-      document.getElementById("price").value = "";
-      document.getElementById("description").value = "";
+      clearFormData();
 
       window.alert("Data Added successfully");
     }
@@ -216,13 +204,15 @@ function AddData() {
 
 //Function to delete data
 function deleteData(id) {
-  var productList = getProductData();
-  let copyprod = [...productList];
-  copyprod = copyprod.filter((prod) => prod.id != id);
-  productList = copyprod;
-  localStorage.setItem("productList", JSON.stringify(productList));
-
-  localStorage.removeItem(id);
+  if(confirm("Delete Product with Id "+id)){
+    var productList = getProductData();
+    let copyprod = [...productList];
+    copyprod = copyprod.filter((prod) => prod.id != id);
+    productList = copyprod;
+    localStorage.setItem("productList", JSON.stringify(productList));  
+    localStorage.removeItem(id);
+    
+  }  
   showData();
 }
 
@@ -236,7 +226,9 @@ function updateData(index) {
 
     document.getElementById("id").value = productList[index].id;
     document.getElementById("name").value = productList[index].name;
-    document.getElementById("price").value = productList[index].price;
+    document.getElementById("price").value = productList[index].price;    
+  // document.getElementById("prodimage").value = localStorage.getItem(productList[index].id)
+
     document.getElementById("description").value =
       productList[index].description;
     let id = productList[index].id;
@@ -254,30 +246,37 @@ function updateData(index) {
 
         if (document.getElementById("prodimage").value) {
           localStorage.removeItem(id);
-          const input_img = document.getElementById("prodimage");
-          const image1 = input_img.files[0];
-          const reader = new FileReader();
-          reader.readAsDataURL(image1);
-          reader.addEventListener("load", () => {
-            localStorage.setItem(newid, reader.result);
-          });
+          storeImage(newid);
         }
 
         window.alert("Data Updated Successfully");
         window.location.href = "#display";
-        document.getElementById("id").value = "";
-        document.getElementById("name").value = "";
-        document.getElementById("prodimage").value = "";
-        document.getElementById("price").value = "";
-        document.getElementById("description").value = "";
+        clearFormData();
         document.getElementById("Submit").style.display = "block";
         document.getElementById("Update").style.display = "none";
       }
     };
   }, 50);
 }
-//Routing
 
+function clearFormData(){
+  document.getElementById("id").value = "";
+  document.getElementById("name").value = "";
+  document.getElementById("prodimage").value = "";
+  document.getElementById("price").value = "";
+  document.getElementById("description").value = "";
+}
+function storeImage(id){
+  const input_img = document.getElementById("prodimage");
+  const image1 = input_img.files[0];
+  const reader = new FileReader();
+  reader.readAsDataURL(image1);
+  reader.addEventListener("load", () => {
+    localStorage.setItem(id, reader.result);
+  });
+}
+
+//Routing
 const routes = {
   404: {
     template: "./pages/404.html",
