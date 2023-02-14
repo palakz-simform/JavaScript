@@ -7,22 +7,21 @@ function validateForm() {
   var price = document.getElementById("price").value;
   var description = document.getElementById("description").value;
 
-      //clear errors
-      document.getElementById("disp-id").innerHTML = "";
-      document.getElementById("disp-name").innerHTML = "";
-      document.getElementById("disp-image").innerHTML = "";
-      document.getElementById("disp-price").innerHTML = "";
-      document.getElementById("disp-description").innerHTML = "";
+  //clear errors
+  document.getElementById("disp-id").innerHTML = "";
+  document.getElementById("disp-name").innerHTML = "";
+  document.getElementById("disp-image").innerHTML = "";
+  document.getElementById("disp-price").innerHTML = "";
+  document.getElementById("disp-description").innerHTML = "";
 
   if (id == "") {
     document.getElementById("disp-id").innerHTML = "**Enter Product ID**";
-    return false;   
-  }
-  else if(id!=""){      
-    if(isNaN(id)){
+    return false;
+  } else if (id != "") {
+    if (isNaN(id)) {
       document.getElementById("disp-id").innerHTML = "**ID should be number**";
-      return false;      
-    }      
+      return false;
+    }
   }
   if (name == "") {
     document.getElementById("disp-name").innerHTML = "**Enter Product name**";
@@ -37,16 +36,17 @@ function validateForm() {
     document.getElementById("disp-price").innerHTML =
       "**Upload Product Price**";
     return false;
-  }   else if (price < 0) {
+  } else if (price < 0) {
     document.getElementById("disp-price").innerHTML =
       "**Product Price should be greater than zero**";
     return false;
   }
-  if(price!=""){    
-    if(isNaN(price)){
-      document.getElementById("disp-price").innerHTML = "**Price should be number**";
-      return false;   
-    }   
+  if (price != "") {
+    if (isNaN(price)) {
+      document.getElementById("disp-price").innerHTML =
+        "**Price should be number**";
+      return false;
+    }
   }
 
   if (description == "") {
@@ -89,7 +89,6 @@ function getProductData() {
     productList = [];
   } else {
     productList = JSON.parse(localStorage.getItem("productList"));
-   
   }
   return productList;
 }
@@ -168,18 +167,15 @@ function showData() {
 
 // function to add data
 function AddData() {
-  
-  if (validateForm() == true) {    
-
-
+  if (validateForm() == true) {
     var id = document.getElementById("id").value;
     var name = document.getElementById("name").value;
     var price = document.getElementById("price").value;
     var description = document.getElementById("description").value;
-    
+
     var productList = getProductData();
-    
-    storeImage(id)
+
+    storeImage(id);
 
     let products = [...productList];
     products = products.filter((product) => product.id == id);
@@ -199,20 +195,18 @@ function AddData() {
       window.alert("Data Added successfully");
     }
   }
-
 }
 
 //Function to delete data
 function deleteData(id) {
-  if(confirm("Delete Product with Id "+id)){
+  if (confirm("Delete Product with Id " + id)) {
     var productList = getProductData();
     let copyprod = [...productList];
     copyprod = copyprod.filter((prod) => prod.id != id);
     productList = copyprod;
-    localStorage.setItem("productList", JSON.stringify(productList));  
+    localStorage.setItem("productList", JSON.stringify(productList));
     localStorage.removeItem(id);
-    
-  }  
+  }
   showData();
 }
 
@@ -226,8 +220,8 @@ function updateData(index) {
 
     document.getElementById("id").value = productList[index].id;
     document.getElementById("name").value = productList[index].name;
-    document.getElementById("price").value = productList[index].price;    
-  // document.getElementById("prodimage").value = localStorage.getItem(productList[index].id)
+    document.getElementById("price").value = productList[index].price;
+    // document.getElementById("prodimage").value = localStorage.getItem(productList[index].id)
 
     document.getElementById("description").value =
       productList[index].description;
@@ -259,14 +253,14 @@ function updateData(index) {
   }, 50);
 }
 
-function clearFormData(){
+function clearFormData() {
   document.getElementById("id").value = "";
   document.getElementById("name").value = "";
   document.getElementById("prodimage").value = "";
   document.getElementById("price").value = "";
   document.getElementById("description").value = "";
 }
-function storeImage(id){
+function storeImage(id) {
   const input_img = document.getElementById("prodimage");
   const image1 = input_img.files[0];
   const reader = new FileReader();
