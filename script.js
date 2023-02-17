@@ -15,7 +15,8 @@ function validateForm() {
   document.getElementById("disp-description").innerHTML = "";
 
   if (id == "") {
-    document.getElementById("disp-id").innerHTML = "**Enter Product ID**";
+    document.getElementById("disp-id").innerHTML =
+      "**Enter correct product ID**";
     return false;
   } else if (id != "") {
     if (id < 0) {
@@ -71,23 +72,23 @@ function displayData(data) {
   data.length == 0
     ? (html = `<tr><td colspan="6"><h4 id="no-product">No Data Available! <br><br><button class="btn btn-success"><a href="/">Add Data</a></button></h4></td></tr>`)
     : filterprodlist.forEach(function (element, index) {
-        html += "<tr>";
-        html += "<td>" + element.id + "</td>";
-        html += "<td>" + element.name + "</td>";
-        html +=
-          `<td> <img src=` +
-          localStorage.getItem(element.id) +
-          ` style="width:100px;height:100px"> </td>`;
-        html += "<td>" + element.price + "</td>";
-        html += "<td>" + element.description + "</td>";
-        html +=
-          `<td><button onclick = "deleteData(` +
-          element.id +
-          `)" class="btn btn-danger">Delete <i class="fa-solid fa-trash"></i></button><a href="#"><button onclick = "updateData(` +
-          index +
-          `)" class="btn btn-warning">Edit<i class="fa-solid fa-pen"></i></button></a></td>`;
-        html += "</tr>";
-      });
+      html += "<tr>";
+      html += "<td>" + element.id + "</td>";
+      html += "<td>" + element.name + "</td>";
+      html +=
+        `<td> <img src=` +
+        localStorage.getItem(element.id) +
+        ` style="width:100px;height:100px"> </td>`;
+      html += "<td>" + element.price + "</td>";
+      html += "<td>" + element.description + "</td>";
+      html +=
+        `<td><button onclick = "deleteData(` +
+        element.id +
+        `)" class="btn btn-danger">Delete <i class="fa-solid fa-trash"></i></button><a href="#"><button onclick = "updateData(` +
+        index +
+        `)" class="btn btn-warning">Edit<i class="fa-solid fa-pen"></i></button></a></td>`;
+      html += "</tr>";
+    });
   document.getElementById("crudTable").innerHTML = html;
 }
 
@@ -109,7 +110,6 @@ function showData() {
 
     productList = getProductData();
 
-
     //Code for searching item
     searchprod.addEventListener("keyup", (e) => {
       let searchproduct = [...productList];
@@ -120,7 +120,6 @@ function showData() {
       if (e.target.value == "") {
         searchproduct = productList;
       }
-      console.log(searchproduct);
       displayData(searchproduct);
     });
 
@@ -136,31 +135,37 @@ function showData() {
       let sorttype = val;
       arrow.addEventListener("click", (e) => {
         if (sorttype == "productId" && e.target.value == "ascending") {
-          filterprodlist = productList.sort((a, b) => a.id - b.id);
+          filterprodlist = filterprodlist.sort((a, b) => a.id - b.id);
           displayData(filterprodlist);
-        } else if (sorttype == "productId" && e.target.value == "descending") {
-          filterprodlist = productList.sort((a, b) => b.id - a.id);
+        }
+        if (sorttype == "productId" && e.target.value == "descending") {
+          filterprodlist = filterprodlist.sort((a, b) => b.id - a.id);
           displayData(filterprodlist);
-        } else if (sorttype === "productName" && e.target.value == "ascending") {
-          filterprodlist = productList.sort((a, b) =>
+        }
+        if (sorttype == "productName" && e.target.value == "ascending") {
+          filterprodlist = filterprodlist.sort((a, b) =>
             a.name.localeCompare(b.name)
           );
-        } else if (sorttype === "productName" && e.target.value == "descending") {
-          filterprodlist = productList.sort((a, b) =>
+          displayData(filterprodlist);
+        }
+        if (sorttype == "productName" && e.target.value == "descending") {
+          filterprodlist = filterprodlist.sort((a, b) =>
             b.name.localeCompare(a.name)
           );
           displayData(filterprodlist);
-        } else if ( e.target.value === "price" && e.target.value == "ascending") {
-          filterprodlist = productList.sort((a, b) => a.price - b.price);
+        }
+        if (sorttype === "price" && e.target.value == "ascending") {
+          filterprodlist = filterprodlist.sort((a, b) => a.price - b.price);
           displayData(filterprodlist);
-        } else if (e.target.value === "price" && e.target.value == "descending") {
-          filterprodlist = productList.sort((a, b) => b.price - a.price);
+        }
+        if (sorttype === "price" && e.target.value == "descending") {
+          filterprodlist = filterprodlist.sort((a, b) => b.price - a.price);
           displayData(filterprodlist);
         }
       });
     }
     displayData(filterprodlist);
-  }, 0);
+  }, 100);
 }
 
 setTimeout(() => {
@@ -181,7 +186,7 @@ function AddData() {
     var description = document.getElementById("description").value;
     var img = document.getElementById("prodimage").value;
     var productList = getProductData();
-    storeImage(id); 
+    storeImage(id);
     let products = [...productList];
     products = products.filter((product) => product.id == id);
     if (products.length > 0) {
@@ -222,8 +227,9 @@ function updateData(index) {
     document.getElementById("id").disabled = "true";
     document.getElementById("id").value = productList[index].id;
     document.getElementById("name").value = productList[index].name;
-    document.getElementById("price").value = productList[index].price;  
-    document.getElementById("description").value = productList[index].description;
+    document.getElementById("price").value = productList[index].price;
+    document.getElementById("description").value =
+      productList[index].description;
 
     document.querySelector("#Update").onclick = function (e) {
       e.preventDefault();
@@ -245,7 +251,7 @@ function updateData(index) {
         window.location.href = "#display";
       }
     };
-  }, 50);
+  }, 100);
 }
 
 function clearFormData() {
