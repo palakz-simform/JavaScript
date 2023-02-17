@@ -124,12 +124,22 @@ i{
 button{
   margin: auto 5px;
 }
+.container-form {
 
+  display:flex; 
+  flex-direction: column;
+ 
+  margin: 50px auto;
+  max-width:400px;
+
+}
 @media (max-width: 1400px) {
   .btn {
     display: flex;
     margin:8px auto;
   }
+ 
+  
 }
 @media (max-width: 775px) {
   .container-sort {
@@ -151,7 +161,7 @@ button{
     width: auto;
   }
   .container-form textarea {
-    width: auto;
+    width: 280px;;
   }
   input#prodimage.form-control.img-input {
     width: 275px;
@@ -162,4 +172,12 @@ button{
     flex-wrap: nowrap;
     overflow: auto;
   }
+  .container-form {
+    display:flex;
+    align-content: center;
+    flex-direction: column;
+   
+  
+  }
+  
 }
