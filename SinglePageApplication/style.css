@@ -181,10 +181,11 @@ hr {
 }
 
 .container-service h1 {
-  padding-top: 100px;
+  padding-top: 130px;
   color: white;
   font-size: 85px;
   text-shadow: 1px 1px 5px black;
+  text-align:center
 }
 
 .service-content h3 {
@@ -283,7 +284,6 @@ hr {
   #services{
     padding:0px;
   }
-
   .slide img{
     height:auto;
   }
@@ -291,7 +291,7 @@ hr {
     padding:0px;
   }
   .arrow {
-    top:30%
+    top:30%;
   }
   #image{
     min-height:500px;
