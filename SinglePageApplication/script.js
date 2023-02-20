@@ -5,7 +5,6 @@ function controller(x) {
   slideshow(flag);
 }
 
-
 function slideshow(num) {
   let slides = document.getElementsByClassName("slide");
   if (num == slides.length) {
