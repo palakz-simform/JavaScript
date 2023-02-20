@@ -60,7 +60,6 @@ function validateForm() {
       "**Enter Product description**";
     return false;
   }
-
   return true;
 }
 
@@ -92,6 +91,7 @@ function displayData(data) {
   document.getElementById("crudTable").innerHTML = html;
 }
 
+//Function to get data from local storage
 function getProductData() {
   if (localStorage.getItem("productList") == null) {
     productList = [];
@@ -129,7 +129,7 @@ function showData() {
       sortval(sorybyvalue);
     });
 
-    //sorttype = id,name sortval = asc desc
+    //sorttype = id,name,price sortval = asc desc
     let filterprodlist = [...productList];
     function sortval(val) {
       let sorttype = val;
@@ -225,15 +225,22 @@ function updateData(index) {
     document.getElementById("Update").style.display = "block";
     var productList = getProductData();
     document.getElementById("id").disabled = "true";
-    document.getElementById("id").value = productList[index].id;
+    var productId = document.getElementById("id").value = productList[index].id;
     document.getElementById("name").value = productList[index].name;
     document.getElementById("price").value = productList[index].price;
     document.getElementById("description").value =
       productList[index].description;
 
+      const recentImgUrl = (localStorage.getItem(productId));
+
+      if(recentImgUrl){
+        document.querySelector(".imgurl").setAttribute("src",recentImgUrl);
+        document.querySelector(".imgurl").setAttribute("style","height:50px")
+      }
+
     document.querySelector("#Update").onclick = function (e) {
       e.preventDefault();
-      let id = (productList[index].id = document.getElementById("id").value);
+      let id = document.getElementById("id").value;
       productList[index].name = document.getElementById("name").value;
       productList[index].price = document.getElementById("price").value;
       productList[index].description =
@@ -242,7 +249,7 @@ function updateData(index) {
       localStorage.setItem("productList", JSON.stringify(productList));
       let newid = productList[index].id;
       if (image) {
-        console.log(newid);
+
         localStorage.removeItem(id);
         storeImage(newid);
       }

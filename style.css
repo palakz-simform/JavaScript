@@ -8,6 +8,7 @@
   color: white;
   font-size: 25px;
   font-weight: bold;
+  padding-left: 10px;
 }
 .navbar-nav {
   margin-right: 50px;
@@ -18,8 +19,8 @@
 .nav-link:hover {
   color: rgb(93, 151, 151);
 }
-a{
-  color:white;
+a {
+  color: white;
   text-decoration: none;
 }
 .container-form {
@@ -42,8 +43,7 @@ a{
 #disp-price,
 #disp-description {
   color: red;
-  width:500px;
-
+  width: 500px;
 }
 .row {
   width: 100%;
@@ -52,22 +52,22 @@ a{
 }
 table.table.table-striped {
   width: 100%;
-  margin-top:50px;
+  margin-top: 50px;
 }
-th{
+th {
   font-size: 18px;
   text-align: center;
 }
-td{
+td {
   text-align: center;
 }
-#no-product{
-  text-align:center;
-  margin-top:50px;
-  color:rgb(110, 110, 110);
+#no-product {
+  text-align: center;
+  margin-top: 50px;
+  color: rgb(110, 110, 110);
 }
 input#Submit.btn.btn-success {
-  width: 100px; 
+  width: 100px;
 }
 .container-sort {
   display: flex;
@@ -107,39 +107,42 @@ input#Submit.btn.btn-success {
 td {
   width: 16%;
 }
-.product-list{
-  text-align:center;
+.product-list {
+  text-align: center;
 }
-table#product-table.table.table.table-striped{
-  margin:20px 0px 20px 0px;
+table#product-table.table.table.table-striped {
+  margin: 20px 0px 20px 0px;
 }
-i{
-  color:white;
-  margin:auto auto;  
+i {
+  color: white;
+  margin: auto auto;
 }
-.fa-pen{
-  color:black;
-  margin-left:4px;
+.fa-pen {
+  color: black;
+  margin-left: 4px;
 }
-button{
+button {
   margin: auto 5px;
 }
 .container-form {
-
-  display:flex; 
+  display: flex;
   flex-direction: column;
- 
   margin: 50px auto;
-  max-width:400px;
-
+  max-width: 400px;
 }
+div.image-url {
+  display: inline-flex;
+  width: 500px;
+}
+.form-group-btn {
+  width: 500px;
+}
+
 @media (max-width: 1400px) {
   .btn {
     display: flex;
-    margin:8px auto;
+    margin: 8px auto;
   }
- 
-  
 }
 @media (max-width: 775px) {
   .container-sort {
@@ -148,7 +151,7 @@ button{
     padding: 30px auto;
   }
   .search-prod {
-    padding-bottom: 50px;    
+    padding-bottom: 50px;
   }
   .arrow {
     display: flex;
@@ -158,13 +161,16 @@ button{
     width: auto;
   }
   .container-form input {
-    width: auto;
+    width: 300px;
   }
   .container-form textarea {
-    width: 280px;;
+    width: 300px;
+  }
+  .img-input {
+    width: 300px;
   }
   input#prodimage.form-control.img-input {
-    width: 275px;
+    width: 300px;
   }
   .table.table.table-striped {
     display: flex;
@@ -173,11 +179,33 @@ button{
     overflow: auto;
   }
   .container-form {
-    display:flex;
+    display: flex;
     align-content: center;
     flex-direction: column;
-   
-  
   }
-  
+  .form-group-btn {
+    width: auto;
+  }
+  div.image-url {
+    width: 350px;
+  }
+  .img-input {
+    width: 350px;
+  }
+  .image-url {
+    display: flex;
+    flex-direction: column;
+  }
+  .imgurl {
+    margin-bottom: 5px;
+    width: 100px;
+  }
+  #disp-id,
+  #disp-name,
+  #disp-image,
+  #disp-price,
+  #disp-description {
+    color: red;
+    width: 300px;
+  }
 }
