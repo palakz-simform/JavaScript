@@ -71,23 +71,23 @@ function displayData(data) {
   data.length == 0
     ? (html = `<tr><td colspan="6"><h4 id="no-product">No Data Available! <br><br><button class="btn btn-success"><a href="/">Add Data</a></button></h4></td></tr>`)
     : filterprodlist.forEach(function (element, index) {
-      html += "<tr>";
-      html += "<td>" + element.id + "</td>";
-      html += "<td>" + element.name + "</td>";
-      html +=
-        `<td> <img src=` +
-        localStorage.getItem(element.id) +
-        ` style="width:100px;height:100px"> </td>`;
-      html += "<td>" + element.price + "</td>";
-      html += "<td>" + element.description + "</td>";
-      html +=
-        `<td><button onclick = "deleteData(` +
-        element.id +
-        `)" class="btn btn-danger">Delete <i class="fa-solid fa-trash"></i></button><a href="#"><button onclick = "updateData(` +
-        index +
-        `)" class="btn btn-warning">Edit<i class="fa-solid fa-pen"></i></button></a></td>`;
-      html += "</tr>";
-    });
+        html += "<tr>";
+        html += "<td>" + element.id + "</td>";
+        html += "<td>" + element.name + "</td>";
+        html +=
+          `<td> <img src=` +
+          localStorage.getItem(element.id) +
+          ` style="width:100px;height:100px"> </td>`;
+        html += "<td>" + element.price + "</td>";
+        html += "<td>" + element.description + "</td>";
+        html +=
+          `<td><button onclick = "deleteData(` +
+          element.id +
+          `)" class="btn btn-danger">Delete <i class="fa-solid fa-trash"></i></button><a href="#"><button onclick = "updateData(` +
+          index +
+          `)" class="btn btn-warning">Edit<i class="fa-solid fa-pen"></i></button></a></td>`;
+        html += "</tr>";
+      });
   document.getElementById("crudTable").innerHTML = html;
 }
 
@@ -225,18 +225,27 @@ function updateData(index) {
     document.getElementById("Update").style.display = "block";
     var productList = getProductData();
     document.getElementById("id").disabled = "true";
-    var productId = document.getElementById("id").value = productList[index].id;
+    var productId = (document.getElementById("id").value =
+      productList[index].id);
     document.getElementById("name").value = productList[index].name;
     document.getElementById("price").value = productList[index].price;
     document.getElementById("description").value =
       productList[index].description;
 
-      const recentImgUrl = (localStorage.getItem(productId));
-
-      if(recentImgUrl){
-        document.querySelector(".imgurl").setAttribute("src",recentImgUrl);
-        document.querySelector(".imgurl").setAttribute("style","height:50px")
-      }
+    const recentImgUrl = localStorage.getItem(productId);
+    if (recentImgUrl) {
+      document.querySelector(".imgurl").setAttribute("src", recentImgUrl);
+      document.querySelector(".imgurl").setAttribute("style", "height:50px");
+    }
+    document.querySelector("#prodimage").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        document.querySelector(".imgurl").setAttribute("src", reader.result);
+        document.querySelector(".imgurl").setAttribute("style", "height:50px");
+      };
+    });
 
     document.querySelector("#Update").onclick = function (e) {
       e.preventDefault();
@@ -249,7 +258,6 @@ function updateData(index) {
       localStorage.setItem("productList", JSON.stringify(productList));
       let newid = productList[index].id;
       if (image) {
-
         localStorage.removeItem(id);
         storeImage(newid);
       }
