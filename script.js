@@ -247,6 +247,7 @@ function updateData(index) {
       };
     });
 
+    //On clicking update following should execute
     document.querySelector("#Update").onclick = function (e) {
       e.preventDefault();
       let id = document.getElementById("id").value;
@@ -266,9 +267,10 @@ function updateData(index) {
         window.location.href = "#display";
       }
     };
-  }, 100);
+  }, 500);
 }
 
+//function to clear form data
 function clearFormData() {
   document.getElementById("id").value = "";
   document.getElementById("name").value = "";
@@ -276,6 +278,8 @@ function clearFormData() {
   document.getElementById("price").value = "";
   document.getElementById("description").value = "";
 }
+
+//function to store image
 function storeImage(id) {
   const input_img = document.getElementById("prodimage");
   const image1 = input_img.files[0];
